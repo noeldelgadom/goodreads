@@ -1,23 +1,13 @@
 from django.db import models
+from genres import GENRE_CHOICES
+from authors_app.models import Author
+from users_app.models import User
 
 # Create your models here.
 class Book(models.Model):
 
-    GENRE_CHOICES = (
-        ('FA', 'Fantasy'),
-        ('FI', 'Fiction'),
-        ('CH', 'Children'),
-        ('SF', 'Sci-Fiction'),
-        ('RO', 'Romance'),
-        ('ME', 'Memoirs'),
-        ('SH', 'Self-Help'),
-        ('HI', 'History'),
-        ('RE', 'Religion'),
-        ('BI', 'Biography'),
-    )
-
-    name = models.CharField()
-    author =
+    name = models.CharField(max_length=128)
+    author = models.ForeignKey(Author)
     isbn = models.PositiveIntegerField()
     pub_date = models.DateField()
     cover_photo = models.ImageField()
@@ -29,6 +19,6 @@ class Book(models.Model):
     )
 
 class Comment(models.Model):
-    book =
-    user =
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    user = models.ForeignKey(User)
     comment_text = models.TextField()
